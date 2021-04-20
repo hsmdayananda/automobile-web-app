@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+.header{
+    background-color: #ec6060;
+    text-align: center;
+    font-size: medium; 
+    font-family: Georgia;
+}
+
+.button-div{
+ padding-bottom: 10px; padding-left: 200px; padding-top: 50px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

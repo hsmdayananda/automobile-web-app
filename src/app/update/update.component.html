@@ -1,0 +1,52 @@
+<h3 style="padding-left: 100px;">Update Info</h3>
+<div style="width: 400px; padding-left: 100px;">
+    <form (ngSubmit)="onSubmit(automobile)">
+        <div class="form-group">
+            <label for="name">ID</label>
+            <input type="text" class="form-control" id="id" required [(ngModel)]="formObj.id" name="id"
+                [readonly]="true">
+        </div>
+
+        <div class="form-group">
+            <label for="name">First Name</label>
+            <input type="text" class="form-control" id="firstName" required [(ngModel)]="formObj.firstName"
+                name="firstName">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Last Name</label>
+            <input type="text" class="form-control" id="lastName" required [(ngModel)]="formObj.lastName"
+                name="lastName">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Email Id</label>
+            <input type="text" class="form-control" id="email" required [(ngModel)]="formObj.email" name="email">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Car Make</label>
+            <input type="text" class="form-control" id="carMake" required [(ngModel)]="formObj.carMake" name="carMake">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Car Model</label>
+            <input type="text" class="form-control" id="carModel" required [(ngModel)]="formObj.carModel"
+                name="carModel">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Vin Number</label>
+            <input type="text" class="form-control" id="vinNumber" required [(ngModel)]="formObj.vinNumber"
+                name="vinNumber">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Manufactured Date</label>
+            <input type="text" class="form-control" id="manufacturedDate" required
+                [(ngModel)]="automobile.manufacturedDate" name="manufacturedDate">
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>

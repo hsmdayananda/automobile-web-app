@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="md-form">
+                <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput />
+                <label for="search">Search</label>
+            </div>
+            <div style="padding-bottom: 10px;">
+                <button mdbBtn color="teal" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect
+                    routerLink="/export">Export Data </button>
+            </div>
+        </div>
+    </div>
+
+
+    <table class=" table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr mdbTableCol
+                *ngFor="let el of elements | paginate: { id: 'server', itemsPerPage: 100, currentPage: p, totalItems: 1000 }">
+                <th scope="row">{{el.id}}</th>
+                <td>{{el.firstName}}</td>
+                <td>{{el.lastName}}</td>
+                <td>{{el.email}}</td>
+                <td>{{el.carMake}}</td>
+                <td>{{el.carModel}}</td>
+                <td>{{el.vinNumber}}</td>
+                <td>{{el.manufacturedDate}}</td>
+                <td>
+                    <button mdbBtn color="blue" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect
+                        (click)="updateAutomobile(el.id)">Edit</button>
+                </td>
+                <td>
+                    <button mdbBtn color="teal" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect
+                        (click)="deleteAutomobile(el.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="has-text-centered">
+        <div class="spinner"></div>
+        <pagination-controls (pageChange)="getAutomobiles($event)" id="server"></pagination-controls>
+    </div>
+
+</div>

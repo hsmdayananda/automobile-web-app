@@ -1,0 +1,25 @@
+<h2 style="padding-left: 100px;"> Enter the Criteria</h2>
+<div style="padding-left: 100px;">
+    <!-- <form> -->
+    <label for="cars" style="padding-right: 10px;">Field</label>
+    <select [(ngModel)]="fieldNameSelected" (change)=" selectedFieldName()">
+        <option value="carModel">Car Model</option>
+        <option value="carMake">Car Make</option>
+        <option value="ageOfVehicle">Age of Vehicle</option>
+    </select>
+    <br><br>
+
+    <label for="cars" style="padding-right: 10px;">Operator </label>
+    <select [(ngModel)]="operator" (change)="selectedOperatorName()">
+        <option value="lessThan">lessThan</option>
+        <option value="lessThanOrEqualTo">lessThanOrEqualTo</option>
+        <option value="greaterThan">greaterThan</option>
+        <option value="greaterThanOrEqualTo">greaterThanOrEqualTo</option>
+    </select>
+    <br><br>
+    <label for="value" style="padding-right: 10px;">Value</label>
+    <input type="text" id="value" name="value" [(ngModel)]="value" (change)=" valueSet()"><br><br>
+    <input type="submit" value="Submit" (click)="submitRequest()">
+
+    <!-- </form> -->
+</div>
