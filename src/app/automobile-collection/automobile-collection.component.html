@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-md-12 mx-auto">
             <div class="md-form">
-                <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput />
+                <input type="text" matInput placeholder="Filter by Model..." name="searchTerm" [(ngModel)]="searchTerm"
+                    (input)="search($event)">
                 <label for="search">Search</label>
             </div>
             <div style="padding-bottom: 10px;">

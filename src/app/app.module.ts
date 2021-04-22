@@ -16,6 +16,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { DataExportComponent } from './data-export/data-export.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SearchFilterPipe } from './search-filter.pipe';
 
 
 
@@ -29,7 +30,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AutomobileCollectionComponent,
     UpdateComponent,
     DataExportComponent,
-    NotificationComponent
+    NotificationComponent,
+    SearchFilterPipe
   ],
   imports: [
     BrowserModule,
