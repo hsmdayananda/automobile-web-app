@@ -1,7 +1,7 @@
-<h3 style="text-align: left; color: slateblue; padding-bottom: 10px;">Upload your CSV File!</h3>
+<h3 style="text-align: left; color:black; padding-bottom: 10px; padding-left: 30px;">Upload your CSV File</h3>
 <div>
-    <div *ngIf="error">
-        {{ error.message }}
+    <!-- <div *ngIf="error"> -->
+    <!-- {{ error.message }}
     </div>
     <div *ngIf="uploadResponse.status === 'error'">
         {{ uploadResponse.message }}
@@ -14,7 +14,7 @@
             {{uploadResponse.message}}%
         </div>
 
-    </div>
+    </div>  -->
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
 

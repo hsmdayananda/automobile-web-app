@@ -17,6 +17,8 @@ import { DataExportComponent } from './data-export/data-export.component';
 import { NotificationComponent } from './notification/notification.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SearchFilterPipe } from './search-filter.pipe';
+import { ToastrModule } from 'ngx-toastr'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
 
@@ -44,7 +46,15 @@ import { SearchFilterPipe } from './search-filter.pipe';
     NoopAnimationsModule,
     MatSelectModule,
     MatOptionModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(
+      {
+        timeOut: 10000,
+        positionClass: "toast-top-center",
+
+      }
+    )
 
   ],
   providers: [],

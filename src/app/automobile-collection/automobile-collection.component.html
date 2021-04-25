@@ -3,8 +3,9 @@
         <div class="col-md-12 mx-auto">
             <div class="md-form">
                 <input type="text" matInput placeholder="Filter by Model..." name="searchTerm" [(ngModel)]="searchTerm"
-                    (input)="search($event)">
+                    (input)="search($event)"> <br>
                 <label for="search">Search</label>
+                <hr>
             </div>
             <div style="padding-bottom: 10px;">
                 <button mdbBtn color="teal" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect
@@ -31,12 +32,13 @@
                 <td>{{el.carModel}}</td>
                 <td>{{el.vinNumber}}</td>
                 <td>{{el.manufacturedDate}}</td>
+                <td>{{el.ageOfVehicle}}</td>
                 <td>
-                    <button mdbBtn color="blue" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect
+                    <button size="sm" type="button" class="m-0" mdbWavesEffect
                         (click)="updateAutomobile(el.id)">Edit</button>
                 </td>
                 <td>
-                    <button mdbBtn color="teal" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect
+                    <button size="sm" type="button" class="m-0" mdbWavesEffect
                         (click)="deleteAutomobile(el.id)">Delete</button>
                 </td>
             </tr>

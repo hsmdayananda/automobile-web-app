@@ -13,3 +13,24 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.toast-top-center {
+    background-color: limegreen;
+    top: 12px;
+    right: 12px;
+   
+  }
+
+  .toast-container {
+    pointer-events: none;
+    position: fixed;
+    z-index: 999999;
+    width: 400px;
+    text-align: center;
+}
+
+.button-grid{
+    background-color: black;
+    
+}
+

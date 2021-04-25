@@ -2,12 +2,11 @@ import { Component, OnInit, HostListener, ViewChild, Input } from '@angular/core
 import { gql, Apollo } from 'apollo-angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdbTableDirective } from 'angular-bootstrap-md';
-import { Observable, of, combineLatest } from 'rxjs';
-import { delay, map, tap, startWith } from 'rxjs/operators';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { Vehicles } from 'Vehicles';
-import { Automobile } from 'Automobile';
+import { Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
+import { AutomobileService } from '../automobile.service';
+import moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 interface Automobiles {
   carMake: string | ''
@@ -19,6 +18,7 @@ interface Automobiles {
   firstName: string | ''
   manufacturedDate: string | ''
   vinNumber: string | ''
+  ageOfVehicle: number | 1;
 }
 
 
@@ -81,19 +81,21 @@ export class AutomobileCollectionComponent implements OnInit {
   //elements: any = [];
   //elements: any = [];
   elements: Automobiles[] = [];
-  headElements = ['Id', 'First Name ', 'Last Name', 'Email', 'Car Make', 'Car Model', 'Vin Number', 'Manufactured Date'];
+  headElements = ['Id', 'First Name ', 'Last Name', 'Email', 'Car Make', 'Car Model', 'Vin Number', 'Manufactured Date', 'Age of Vehicle'];
 
   vehicles: Observable<any> | undefined;
   @ViewChild(MdbTableDirective, { static: true })
   mdbTable!: MdbTableDirective;
 
   searchText: any;
-  constructor(private apollo: Apollo, private route: ActivatedRoute, private router: Router) {
+  constructor(private toastr: ToastrService, private apollo: Apollo, private route: ActivatedRoute, private router: Router,
+    private automobileService: AutomobileService) {
 
 
   }
 
   ngOnInit(): void {
+    this.toastr.success('Hello', 'Hey Shona', { positionClass: 'toast-top-right' });
     this.getAutomobiles(1);
     //this.filter = new FormControl('');
     // this.route.queryParams.subscribe(x => this.setPage(x.page || 1));
@@ -198,6 +200,7 @@ export class AutomobileCollectionComponent implements OnInit {
   // }
 
   updateAutomobile(id: number) {
+    this.automobileService.automobileFetch(id);
     this.router.navigate(['update', id]);
   }
 
@@ -284,6 +287,19 @@ export class AutomobileCollectionComponent implements OnInit {
     //   total: 1000
     // }).pipe(delay(1000));
   }
+
+
+  // getAge(dateString: string) {
+  //   var today = new Date();
+  //   var birthDate = new Date(dateString);
+  //   var age = today.getFullYear() - birthDate.getFullYear();
+  //   var m = today.getMonth() - birthDate.getMonth();
+  //   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+  //     age--;
+  //   }
+  //   console.log(' hello ', age)
+  //   return age;
+  // }
 }
 
 

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Automobile } from '../../../Automobile'
 import { ActivatedRoute, Router } from '@angular/router';
 import { gql, Apollo } from 'apollo-angular';
+import { AutomobileService } from '../automobile.service';
 
 @Component({
   selector: 'app-update',
@@ -27,53 +28,72 @@ export class UpdateComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private router: Router, private apollo: Apollo
-  ) { }
+    , private automobileServie: AutomobileService) { }
 
   ngOnInit(): void {
     this.automobile = new Automobile();
+    this.automobileServie.automobileUnit().subscribe((data) => {
+      console.log(' data zzz ', data)
+      data.subscribe((res: any) => {
+
+        this.automobile = res.data.automobileById;
+        this.formObj = Object.assign({}, this.automobile);
+        console.log(' hello sweety ', res.data.automobileById)
+        console.log(' hey shona ', this.formObj)
+      });
+      // this.automobile = data.data.automobileById;
+
+      //console.log('automobile', this.automobile)
+      //this.formObj = this.automobile;
+      //this.formObj = Object.assign({}, this.automobile);
+      //console.log(' hey shona ', this.formObj)
+    });
 
     this.id = this.route.snapshot.params['id'];
-    const getQuery = gql`
-    query {
-      automobileById(id: ${this.id}){
-        firstName
-        lastName
-        email
-        ageOfVehicle
-        carMake
-        carModel
-          
-        }
-      }
-      
-    `
-    this.apollo
-      .watchQuery({
-        query: getQuery,
-      })
-      .valueChanges.pipe(
-        (result: any) => {
-          console.log(result.subscribe(async (res: any) => {
-            console.log('hiiii', res);
+    // const getQuery = gql`
+    // query {
+    //   automobileById(id: ${this.id}){
+    //     firstName
+    //     lastName
+    //     email
+    //     ageOfVehicle
+    //     carMake
+    //     carModel
+
+    //     }
+    //   }
+
+    // `
+    // this.apollo
+    //   .watchQuery({
+    //     query: getQuery,
+    //   })
+    //   .valueChanges.pipe(
+    //     (result: any) => {
+    // console.log(result.subscribe(async (res: any) => {
+    //   console.log('hiiii', res);
 
 
-            this.automobile = res.data.automobileById;
+    // this.automobile = res.data.automobileById;
 
-            console.log('automobile', this.automobile)
-            this.formObj = Object.assign({}, this.automobile);
-          }));
-          return result;
-        }
-      );
+    // console.log('automobile', this.automobile)
+    // }));
+    //     return result;
+    //   }
+    // );
+
+  }
+
+  ngOnChanges() {
+    ///** WILL TRIGGER WHEN PARENT COMPONENT UPDATES '**
+
 
   }
 
 
-
   updateAutomobile() {
-    console.log(' hello query', this.formObj)
     delete this.formObj.__typename;
-    delete this.formObj.__proto__;
+    delete this.formObj.id;
     console.log(' hello query 3', this.formObj)
     this.apollo
       .mutate({

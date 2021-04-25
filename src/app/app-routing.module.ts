@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'import', component: DataImportComponent },
   { path: 'collection', component: AutomobileCollectionComponent },
   { path: 'home', component: MasterComponentComponent },
-  { path: 'update/:id', component: UpdateComponent }
+  { path: 'update/:id', component: UpdateComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({
