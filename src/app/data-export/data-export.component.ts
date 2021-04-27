@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { gql, Apollo } from 'apollo-angular';
+import { Apollo } from 'apollo-angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AutomobileService } from '../automobile.service';
 
@@ -13,9 +12,6 @@ import { AutomobileService } from '../automobile.service';
 })
 
 export class DataExportComponent implements OnInit {
-  //fieldNameSelected!: any;
-  //operator!: any;
-  //value!: string;
   private _fieldName: string = '';
   private _operator: string = '';
   private _value: string = '';
@@ -49,16 +45,6 @@ export class DataExportComponent implements OnInit {
   set value(value: string) {
     this._value = value;
   }
-  // selectedFieldName() {
-  //   this.fieldNameSelected
-  // }
-  // selectedOperatorName() {
-  //   this.operator
-  // }
-
-  // valueSet() {
-  //   this.value
-  // }
   submitRequest() {
     console.log(' filter field ', this._fieldName)
     const obj = {
@@ -67,35 +53,6 @@ export class DataExportComponent implements OnInit {
       value: parseInt(this.value)
     }
     this.automobileService.download(obj);
-
-    // const query = gql`
-    //   query automobileExportData($searchCriteriaInput: SearchCriteriaInput!){
-    //     automobilesExportDataFeed(searchCriteriaInput: $searchCriteriaInput){
-    //       firstName
-    //       lastName
-    //     }
-    //   }
-    //  `
-
-    //     console.log(' query filter', obj)
-    //     this.apollo
-    //       .watchQuery({
-    //         query: query,
-    //         variables: {
-    //           searchCriteriaInput: obj
-    //         }
-    //       })
-    //       .valueChanges.pipe(
-    //         (result: any) => {
-    //           console.log(result.subscribe(async (res: any) => {
-    //             console.log('hiiii', res);
-
-
-
-    //           }));
-    //           return result;
-    //         }
-    //       )
   }
 }
 

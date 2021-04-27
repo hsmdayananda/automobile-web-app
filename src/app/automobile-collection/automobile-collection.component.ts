@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { gql, Apollo } from 'apollo-angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdbTableDirective } from 'angular-bootstrap-md';
@@ -37,7 +37,6 @@ export class AutomobileCollectionComponent implements OnInit {
   pageId: number = 1;
   searchTerm: string | undefined;
   private _searchText: string = '';
-  //automobilesFiltered: Automobiles[] | undefined;
   searchStr = '';
   title = 'Automobile Listing'
   pager = {
@@ -47,17 +46,13 @@ export class AutomobileCollectionComponent implements OnInit {
     currentPage: this.pageId,
     totalPages: 10
   };
-  //pageOfItems = [];
   items = [];
   pageOfItems: Array<any> | undefined;
 
   set searchText(value: string) {
     console.log('text ', value)
     this._searchText = value;
-    //if (this.searchText.length > 3) {
     this.search()
-    // }
-
   }
   get searchText(): string {
     return this._searchText;
@@ -86,12 +81,6 @@ export class AutomobileCollectionComponent implements OnInit {
    }
  `
 
-
-
-  //elements: any = [];
-  //elements: any = [];
-  //elements: any = [];
-  //elements: any = [];
   elements: Automobiles[] = [];
   filteredAutomobiles: any[] = this.elements;
   headElements = ['Id', 'First Name ', 'Last Name', 'Email', 'Car Make', 'Car Model', 'Vin Number', 'Manufactured Date', 'Age of Vehicle'];
@@ -100,7 +89,6 @@ export class AutomobileCollectionComponent implements OnInit {
   @ViewChild(MdbTableDirective, { static: true })
   mdbTable!: MdbTableDirective;
 
-  //searchText: any;
   constructor(private toastr: ToastrService, private apollo: Apollo, private route: ActivatedRoute, private router: Router,
     private automobileService: AutomobileService) {
 
@@ -108,27 +96,7 @@ export class AutomobileCollectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.toastr.success('Hello', 'Hey Shona', { positionClass: 'toast-top-right' });
     this.getAutomobiles(1);
-    //this.filter = new FormControl('');
-    // this.route.queryParams.subscribe(x => this.setPage(x.page || 1));
-    // this.vehicles = this.apollo
-    //   .watchQuery({
-    //     query: this.query,
-    //   })
-    //   .valueChanges.pipe(
-    //     (result: any) => {
-    //       console.log(result.subscribe((res: any) => {
-    //         console.log('hiiii', res.data.automobiles);
-    //         this.elements = res.data.automobiles;
-
-
-    //       }));
-    //       return result;
-    //     }
-    //   );
-
-
   }
 
   search(): void {
@@ -151,7 +119,6 @@ export class AutomobileCollectionComponent implements OnInit {
        }
      }
    `
-    console.log(' search query ', searchQuery)
     this.apollo
       .watchQuery({
         query: searchQuery,
@@ -174,10 +141,6 @@ export class AutomobileCollectionComponent implements OnInit {
     this.pageId = pageId;
   }
 
-  onChangePage(pageOfItems: any[]) {
-    // update current page of items
-    this.pageOfItems = pageOfItems;
-  }
 
   searchItems() {
     const prev = this.mdbTable.getDataSource();
@@ -193,9 +156,6 @@ export class AutomobileCollectionComponent implements OnInit {
   previous(previous: any) {
     throw new Error("Method not implemented.");
   }
-  // @HostListener('input') oninput() {
-  //   this.searchItems();
-  // }
 
   updateAutomobile(id: number) {
     this.automobileService.automobileFetch(id);
@@ -235,7 +195,6 @@ export class AutomobileCollectionComponent implements OnInit {
   getAutomobiles(page: any) {
 
     this.pageId = parseInt(page);
-    console.log('current page ', this.pageId)
     const pageQuery = gql`
   
     query{
@@ -271,8 +230,6 @@ export class AutomobileCollectionComponent implements OnInit {
       .valueChanges.pipe(
         (result: any) => {
           console.log(result.subscribe((res: any) => {
-            console.log('hiiiimm', res.data.automobiles);
-            //this.filteredAutomobiles = this.elements;
             this.elements = res.data.automobiles;
             this.filteredAutomobiles = this.elements;
 
@@ -281,24 +238,8 @@ export class AutomobileCollectionComponent implements OnInit {
           return result;
         }
       );
-    // return of({
-    //   items: automobilesPage.nodes,
-    //   total: 1000
-    // }).pipe(delay(1000));
   }
 
-
-  // getAge(dateString: string) {
-  //   var today = new Date();
-  //   var birthDate = new Date(dateString);
-  //   var age = today.getFullYear() - birthDate.getFullYear();
-  //   var m = today.getMonth() - birthDate.getMonth();
-  //   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-  //     age--;
-  //   }
-  //   console.log(' hello ', age)
-  //   return age;
-  // }
 }
 
 

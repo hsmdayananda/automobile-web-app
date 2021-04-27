@@ -13,6 +13,7 @@ export class SocketServiceService {
 
   listen(eventname: string): Observable<any> {
     return new Observable((subscriber) => {
+      console.log(' subscriber ', subscriber)
       this.socket.on(eventname, (data: any) => {
         console.log(' the message ', data);
         subscriber.next(data);
