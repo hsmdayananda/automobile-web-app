@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SocketServiceService } from './socket-service.service';
 
 declare let io: any;
-const socket = io('http://localhost:4001');
+//const socket = io('http://localhost:4001');
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -35,9 +35,14 @@ export class AppComponent implements OnInit, OnChanges {
   }
 
   constructor(private toastr: ToastrService, private socketService: SocketServiceService) {
-    this.socketService.listen('csv-proc').subscribe((data) => {
+    this.socketService.listen('file-upolad').subscribe((data) => {
       console.log(' the message ', data);
-      this.showToastr(data.name);
+      this.showToastr(data);
+    });
+
+    this.socketService.listen('file-download').subscribe((data) => {
+      console.log(' the message ', data);
+      this.showToastr(data);
     });
   }
 

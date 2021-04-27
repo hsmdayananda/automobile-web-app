@@ -18,6 +18,7 @@ export class AutomobileService {
   formObj: any = {};
   automobile: any = {};
 
+
   updateQuery = gql`mutation updateAutomobiles($id: Int!,$automobileInput: AutomobileInput!){
     update(id:$id, automobileInput: $automobileInput){
       firstName
@@ -31,32 +32,49 @@ export class AutomobileService {
 
   async fileUpload(): Promise<Observable<any>> {
     return this.http.get(
-      `${this.baseUrl}/file`
+      `${this.baseUrl}/file/upload`
     );
   }
 
-  public upload(data: any, userId: any) {
-    let uploadURL = `${this.baseUrl}/file`;
+  // public upload(data: any, userId: any) {
+  //   let uploadURL = `${this.baseUrl}/file/upload`;
 
-    return this.http.post<any>(uploadURL, data, {
-      reportProgress: true,
-      observe: 'events',
-    }).pipe(map((event) => {
+  //   return this.http.post<any>(uploadURL, data, {
+  //     reportProgress: true,
+  //     observe: 'events',
+  //   }).pipe(map((event) => {
 
-      switch (event.type) {
+  //     switch (event.type) {
 
-        case HttpEventType.UploadProgress:
-          const progress = '';
-          return { status: 'File Uploaded', message: progress };
+  //       case HttpEventType.UploadProgress:
+  //         const progress = '';
+  //         return { status: 'File Uploaded', message: progress };
 
-        case HttpEventType.Response:
-          return event.body;
-        default:
-          return `Unhandled event: ${event.type}`;
-      }
-    })
-    );
+  //       case HttpEventType.Response:
+  //         return event.body;
+  //       default:
+  //         return `Unhandled event: ${event.type}`;
+  //     }
+  //   })
+  //   );
+  // }
+  async upload(file: any) {
+    // console.log('upload csv', file);
+    // let formData = new FormData();
+    // formData.append("file", file!, file.name!);
+    this.http.post("http://localhost:4000/automobile/file/upload", file).subscribe((response) => {
+      console.log(response);
+    });
   }
+  async download(criteria: any) {
+    // console.log('upload csv', file);
+    // let formData = new FormData();
+    // formData.append("file", file!, file.name!);
+    this.http.post("http://localhost:4000/automobile/file/download", criteria).subscribe((response) => {
+      console.log(response);
+    });
+  }
+
   private saveAsFile(buffer: any, fileName: string, fileType: string): void {
     const data: Blob = new Blob([buffer], { type: fileType });
     FileSaver.saveAs(data, fileName);

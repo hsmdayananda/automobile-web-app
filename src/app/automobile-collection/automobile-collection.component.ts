@@ -36,8 +36,10 @@ export class AutomobileCollectionComponent implements OnInit {
   loading: boolean = false;
   pageId: number = 1;
   searchTerm: string | undefined;
-  automobilesFiltered: Automobiles[] | undefined;
+  private _searchText: string = '';
+  //automobilesFiltered: Automobiles[] | undefined;
   searchStr = '';
+  title = 'Automobile Listing'
   pager = {
     pages: [{
       length: 100
@@ -49,7 +51,17 @@ export class AutomobileCollectionComponent implements OnInit {
   items = [];
   pageOfItems: Array<any> | undefined;
 
+  set searchText(value: string) {
+    console.log('text ', value)
+    this._searchText = value;
+    //if (this.searchText.length > 3) {
+    this.search()
+    // }
 
+  }
+  get searchText(): string {
+    return this._searchText;
+  }
   id: number = 1;
 
   query = gql`
@@ -81,13 +93,14 @@ export class AutomobileCollectionComponent implements OnInit {
   //elements: any = [];
   //elements: any = [];
   elements: Automobiles[] = [];
+  filteredAutomobiles: any[] = this.elements;
   headElements = ['Id', 'First Name ', 'Last Name', 'Email', 'Car Make', 'Car Model', 'Vin Number', 'Manufactured Date', 'Age of Vehicle'];
 
   vehicles: Observable<any> | undefined;
   @ViewChild(MdbTableDirective, { static: true })
   mdbTable!: MdbTableDirective;
 
-  searchText: any;
+  //searchText: any;
   constructor(private toastr: ToastrService, private apollo: Apollo, private route: ActivatedRoute, private router: Router,
     private automobileService: AutomobileService) {
 
@@ -95,7 +108,7 @@ export class AutomobileCollectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.toastr.success('Hello', 'Hey Shona', { positionClass: 'toast-top-right' });
+    //this.toastr.success('Hello', 'Hey Shona', { positionClass: 'toast-top-right' });
     this.getAutomobiles(1);
     //this.filter = new FormControl('');
     // this.route.queryParams.subscribe(x => this.setPage(x.page || 1));
@@ -118,26 +131,11 @@ export class AutomobileCollectionComponent implements OnInit {
 
   }
 
-  search(value: any): void {
-    let searchStr = '';
-    let data = value.data;
-    if (this.searchStr === '' && data !== null) {
-      this.searchStr = data;
-      searchStr = this.searchStr
-      console.log(' search ', searchStr)
-    } else if (data === null) {
-      this.searchStr = this.searchStr.slice(0, -1);
-      searchStr = this.searchStr;
-      console.log(' search ', searchStr)
-    } else {
-      searchStr = this.searchStr.concat(data);
-      this.searchStr = searchStr;
-      console.log(' search ', searchStr)
-    }
-    console.log('search str ', searchStr)
+  search(): void {
+    console.log('search str ', this.searchText)
     const searchQuery = gql`
     query{
-      automobilesSearch(matchStr: "${searchStr}")
+      automobilesSearch(matchStr: "${this.searchText}")
        {
         ageOfVehicle
         carMake
@@ -221,7 +219,8 @@ export class AutomobileCollectionComponent implements OnInit {
       .subscribe(() => {
         console.log("deleted");
 
-        this.gotoList()
+        this.toastr.error(" Deleted Record id " + id);
+        this.gotoList();
       })
   }
 
@@ -273,9 +272,9 @@ export class AutomobileCollectionComponent implements OnInit {
         (result: any) => {
           console.log(result.subscribe((res: any) => {
             console.log('hiiiimm', res.data.automobiles);
-            this.automobilesFiltered = this.elements;
+            //this.filteredAutomobiles = this.elements;
             this.elements = res.data.automobiles;
-            this.automobilesFiltered = this.elements;
+            this.filteredAutomobiles = this.elements;
 
 
           }));

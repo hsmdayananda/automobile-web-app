@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class SocketServiceService {
   socket: SocketIOClient.Socket;
   constructor() {
-    this.socket = io.connect('http://localhost:4001');
+    this.socket = io.connect('http://localhost:4002');
   }
 
   listen(eventname: string): Observable<any> {
